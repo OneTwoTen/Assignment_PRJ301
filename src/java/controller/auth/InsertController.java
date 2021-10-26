@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.food;
+package controller.auth;
 
-import dal.CategoryDBContext;
-import dal.FoodDBContext;
-import entity.Category;
-import entity.Food;
+import dal.LoginDBContext;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author doan7
  */
-public class FoodList extends HttpServlet {
+public class InsertController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,16 +29,7 @@ public class FoodList extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        FoodDBContext fDB = new FoodDBContext();
-        List<Food> foods = fDB.getFoodList();        
-        request.setAttribute("Foods", foods);
-        CategoryDBContext cDB = new CategoryDBContext();
-        List<Category> cates = cDB.getCates();
-        request.setAttribute("Cates", cates);
-        request.getRequestDispatcher("../view/food/list.jsp").forward(request, response);
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,7 +43,7 @@ public class FoodList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("../view/auth/insert.jsp").forward(request, response);
     }
 
     /**
@@ -69,7 +57,19 @@ public class FoodList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String newUser = request.getParameter("user");
+        String newPass = request.getParameter("pass");
+        String cfPass = request.getParameter("pass2");
+        LoginDBContext lDB = new LoginDBContext();
+        Account account = lDB.getAccountWithUser(newUser);
+        if(!newPass.equals(cfPass) || account != null){
+            response.getWriter().println("Sign In Fail");
+        }
+        else{
+            lDB.insert(newUser, cfPass);
+            response.getWriter().println("Sign In Successgully");
+        }
     }
 
     /**

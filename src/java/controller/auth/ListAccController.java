@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.food;
+package controller.auth;
 
-import dal.CategoryDBContext;
-import dal.FoodDBContext;
-import entity.Category;
-import entity.Food;
+import dal.LoginDBContext;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author doan7
  */
-public class FoodList extends HttpServlet {
+public class ListAccController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +32,11 @@ public class FoodList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FoodDBContext fDB = new FoodDBContext();
-        List<Food> foods = fDB.getFoodList();        
-        request.setAttribute("Foods", foods);
-        CategoryDBContext cDB = new CategoryDBContext();
-        List<Category> cates = cDB.getCates();
-        request.setAttribute("Cates", cates);
-        request.getRequestDispatcher("../view/food/list.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        LoginDBContext lDB = new LoginDBContext();
+        List<Account> accounts = lDB.getAccounts();
+        request.setAttribute("Accounts", accounts);
+        request.getRequestDispatcher("../view/auth/ListAccount.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

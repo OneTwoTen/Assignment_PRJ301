@@ -6,7 +6,19 @@
     </servlet>
     <servlet>
         <servlet-name>FoodList</servlet-name>
-        <servlet-class>controller.retaurant.FoodList</servlet-class>
+        <servlet-class>controller.food.FoodList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListAccController</servlet-name>
+        <servlet-class>controller.auth.ListAccController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertController</servlet-name>
+        <servlet-class>controller.auth.InsertController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateController</servlet-name>
+        <servlet-class>controller.auth.UpdateController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>FoodList</servlet-name>
         <url-pattern>/food/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListAccController</servlet-name>
+        <url-pattern>/account/list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertController</servlet-name>
+        <url-pattern>/account/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateController</servlet-name>
+        <url-pattern>/account/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
